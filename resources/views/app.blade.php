@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <script src="{{ mix('/js/app.css') }}" defer></script>
+    <script src="{{ mix('/js/app.js') }}" defer></script>
 </head>
 <body>
 @inertia
