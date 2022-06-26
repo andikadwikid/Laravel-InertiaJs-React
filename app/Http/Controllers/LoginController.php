@@ -19,17 +19,10 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        // dd($request->remember);
-        // dd(Auth::attempt($request->only('email', 'password')));
         if(Auth::attempt($request->only('email', 'password'), $request->remember)){
             session()->regenerate();
-            return to_route('dashboard');
+            return to_route('dashboard')->with('message', 'You are now logged in!');
         }
-
-        // if(Auth::attempt($request->only('email', 'password'), $request->remember)){
-        //     session()->regenerate();
-        //     return redirect('/dashboard');
-        // }
 
         throw ValidationException::withMessages([
                 'email' => 'The provided credentials are incorrect.',
