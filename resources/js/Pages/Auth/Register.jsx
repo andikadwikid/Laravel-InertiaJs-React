@@ -1,23 +1,21 @@
-import { Head, Link } from '@inertiajs/inertia-react';
 import React from 'react';
 import Guest from '../../Layouts/Guest';
+import { Link } from '@inertiajs/inertia-react';
 
-const Login = () => {
+export default function Register() {
     return (
-        <Guest title="Login">
+        <Guest title="Register">
             <div className="card">
                 <div className="card-header">
-                    Login
+                    Register
                 </div>
                 <div className="card-body">
-                    Login form
+                    Register form
                 </div>
                 <div className="card-footer">
-                    <Link className="link-dark text-decoration-none" href="/register">Register</Link>
+                    <Link className="link-dark text-decoration-none" href="/login">Login</Link>
                 </div>
             </div>
         </Guest>
-    );
+    )
 }
-
-export default Login;

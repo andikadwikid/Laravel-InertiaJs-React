@@ -1,14 +1,13 @@
-import { Head } from '@inertiajs/inertia-react'
+import { Head, Link } from '@inertiajs/inertia-react'
 import React from 'react'
-import Navbar from '../Components/Navbar'
 
 export default function App({ children, title }) {
     return (
-        <div>
+        <div className="min-vh-100 d-flex align-items-center justify-content-center">
             {/* Head digunakann untuk membuat title pada halaman */}
             <Head title={title} />
-            <Navbar />
-            <div className="pt-4">
+            <div className="col-md-4">
+                <Link href="/">Logo</Link>
                 {children}
             </div>
         </div>
