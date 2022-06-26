@@ -20,10 +20,10 @@ export default function Navbar(props) {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" href="/">Home</Link>
+                            <Link className="nav-link active" aria-current="page" href={route('home')}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href="/dashboard">Dashboard</Link>
+                            <Link className="nav-link" href={route('dashboard')}>Dashboard</Link>
                         </li>
                     </ul>
 
@@ -38,16 +38,16 @@ export default function Navbar(props) {
                                     <li><a className="dropdown-item" href="#">Settings</a></li>
                                     <li><hr className="dropdown-divider" /></li>
                                     {/* <li><button className="dropdown-item" onClick={logoutHandler}>Logout</button></li> */}
-                                    <li><Link className="dropdown-item" as="button" method="post" href="/logout">Logout</Link></li>
+                                    <li><Link className="dropdown-item" as="button" method="post" href={route('logout')}>Logout</Link></li>
                                 </ul>
                             </li>
                         </ul>
                         :
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" href="/login">Login</Link>
+                                <Link className="nav-link" href={route('login')}>Login</Link>
                             </li><li className="nav-item">
-                                <Link className="nav-link" href="/register">Register</Link>
+                                <Link className="nav-link" href={route('register')}>Register</Link>
                             </li>
                         </ul>
                     }

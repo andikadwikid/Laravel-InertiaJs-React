@@ -13,7 +13,7 @@ export default function Register() {
                     Register form
                 </div>
                 <div className="card-footer">
-                    <Link className="link-dark text-decoration-none" href="/login">Login</Link>
+                    <Link className="link-dark text-decoration-none" href={route('login')}>Login</Link>
                 </div>
             </div>
         </>
