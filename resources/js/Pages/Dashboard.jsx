@@ -4,7 +4,7 @@ import App from '../Layouts/App'
 
 export default function Dashboard() {
     return (
-        <App title="Dashboard">
+        <>
             <div className="container">
                 <div className="card">
                     <div className="card-header">
@@ -15,6 +15,9 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-        </App>
+        </>
     )
 }
+
+Dashboard.layout = (page) => <App children={page} title="Dashboard" />;
+// Dashboard.layout = (page) => <App {...{ children: page, title: "Dashboard" }} />;

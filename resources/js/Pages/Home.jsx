@@ -5,7 +5,7 @@ import App from '../Layouts/App';
 export default function Home(props) {
     const username = props.username;
     return (
-        <App title="Home">
+        <>
             <div className="container">
                 <div className="card">
                     <div className="card-header">
@@ -16,6 +16,10 @@ export default function Home(props) {
                     </div>
                 </div>
             </div>
-        </App>
+        </>
     )
 }
+
+Home.layout = (page) => <App children={page} title="Home" />;
+// Home.layout = (page) => <App {...{ children: page, title: "Home" }} />;
+
