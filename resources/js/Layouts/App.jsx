@@ -7,9 +7,11 @@ export default function App({ children, title }) {
 
     const { flash } = usePage().props
 
-    useEffect(() => {
-        flash.type && toast[flash.type](flash.message)
-    }, [])
+    // useEffect(() => {
+    //     flash.type && toast[flash.type](flash.message)
+    // }, [])
+
+    flash.type && toast[flash.type](flash.message)
 
     return (
         <div>

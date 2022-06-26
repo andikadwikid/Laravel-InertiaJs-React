@@ -8,11 +8,8 @@ export default function Home(props) {
         <>
             <div className="container">
                 <div className="card">
-                    <div className="card-header">
-                        Hello my name is {username}
-                    </div>
                     <div className="card-body">
-                        Hello my name is {username}
+                        Your new Inertia App.
                     </div>
                 </div>
             </div>

@@ -31,4 +31,12 @@ class LoginController extends Controller
                 'email' => 'The provided credentials are incorrect.',
             ]);
     }
+
+    public function destroy(){
+        Auth::logout();
+        return to_route('home')->with([
+            'type' => 'success',
+            'message' => 'You are now logged out.'
+        ]);
+    }
 }

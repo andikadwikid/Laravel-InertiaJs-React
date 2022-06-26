@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link, usePage } from '@inertiajs/inertia-react'
+import { Inertia } from '@inertiajs/inertia'
 
 export default function Navbar(props) {
 
     const { auth } = usePage().props
-    console.log(auth)
+
+    // const logoutHandler = () => {
+    //     Inertia.post('logout')
+    // }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -30,10 +34,11 @@ export default function Navbar(props) {
                                     {auth.user.name}
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                                    <li><a className="dropdown-item" href="#">Settings</a></li>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    {/* <li><button className="dropdown-item" onClick={logoutHandler}>Logout</button></li> */}
+                                    <li><Link className="dropdown-item" as="button" method="post" href="/logout">Logout</Link></li>
                                 </ul>
                             </li>
                         </ul>
