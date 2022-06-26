@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', HomeController::class);
-Route::get('/dashboard', DashboardController::class);
+Route::get('/dashboard', DashboardController::class)->name('dashboard');
 Route::get('/login', [LoginController::class, 'create']);
 Route::post('/login', [LoginController::class, 'store']);
 

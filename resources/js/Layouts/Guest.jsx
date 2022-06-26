@@ -7,7 +7,6 @@ export default function App({ children, title }) {
             {/* Head digunakann untuk membuat title pada halaman */}
             <Head title={title} />
             <div className="col-md-4">
-                <Link href="/">Logo</Link>
                 {children}
             </div>
         </div>
