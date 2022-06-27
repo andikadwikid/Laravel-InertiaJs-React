@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateUser from '../../Components/CreateUser';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
 
@@ -8,7 +9,8 @@ export default function Index(props) {
 
     return (
         <div className="container">
-            <div className="card">
+            <CreateUser />
+            <div className="card mt-3">
                 <div className="card-header">Users</div>
                 <div className="card-body">
                     <table className="table">

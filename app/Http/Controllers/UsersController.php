@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class UsersController extends Controller
     public function index()
     {
         return inertia('Users/Index', [
-            'users' => User::paginate(10),
+            'users' => User::latest()->paginate(10),
         ]);
     }
 
@@ -35,9 +36,22 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $attribute = $request->toArray();
+
+        $attribute['password'] = bcrypt($request->password);
+
+        $user = User::create($attribute);
+
+        if($user) {
+            return back()->with([
+                'type' => 'success',
+                'message' => 'User created successfully',
+            ]);
+        }
+
+
     }
 
     /**
