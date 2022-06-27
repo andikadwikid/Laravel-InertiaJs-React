@@ -14,7 +14,7 @@ export default function App({ children, title }) {
     flash.type && toast[flash.type](flash.message)
 
     return (
-        <div>
+        <div className=''>
             {/* Head digunakann untuk membuat title pada halaman */}
             <Head title={title} />
             <Navbar />

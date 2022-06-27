@@ -1,7 +1,11 @@
 import React from 'react';
+import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
 
-export default function Index({ users }) {
+export default function Index(props) {
+
+    const { data: users, links, from } = props.users
+
     return (
         <div className="container">
             <div className="card">
@@ -19,8 +23,8 @@ export default function Index({ users }) {
                         </thead>
                         <tbody>
                             {users.map((user, index) => (
-                                <tr>
-                                    <td>{index + 1}</td>
+                                <tr key={user.id}>
+                                    <td>{from + index}</td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.location}</td>
@@ -42,9 +46,11 @@ export default function Index({ users }) {
                                     </td>
                                 </tr>
                             ))}
-
                         </tbody>
                     </table>
+
+                    <Pagination links={links} />
+
                 </div>
             </div>
         </div>
