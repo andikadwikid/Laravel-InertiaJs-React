@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CreateUser from '../../Components/CreateUser';
+import Dialog from '../../Components/Dialog';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
+import useDialog from '../../Hooks/useDialog';
 
 export default function Index(props) {
 
     const { data: users, links, from } = props.users
 
+    // const { modalAdd, open, close } = useDialog()
+    const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+
     return (
         <div className="container">
-            <CreateUser />
+            <Dialog trigger={addTrigger} title="Add Modal">
+                <CreateUser close={addCloseTrigger} />
+                {/* <button onClick={close} className="btn btn-secondary">Cancel</button> */}
+            </Dialog>
+            <button onClick={addDialogHandler} className="btn btn-primary px-4">
+                Add
+            </button>
             <div className="card mt-3">
                 <div className="card-header">Users</div>
                 <div className="card-body">

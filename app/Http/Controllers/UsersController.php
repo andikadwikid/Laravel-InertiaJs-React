@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
 {
@@ -50,8 +51,6 @@ class UsersController extends Controller
                 'message' => 'User created successfully',
             ]);
         }
-
-
     }
 
     /**
