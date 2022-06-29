@@ -20,20 +20,20 @@ export default function Navbar(props) {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" href={route('home')}>Home</Link>
+                            <Link className={`nav-link ${route().current('home') && 'active'}`} aria-current="page" href={route('home')}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href={route('dashboard')}>Dashboard</Link>
+                            <Link className={`nav-link ${route().current('dashboard') && 'active'}`} href={route('dashboard')}>Dashboard</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href={route('users.index')}>Users</Link>
+                            <Link className={`nav-link ${route().current('users.index') && 'active'}`} href={route('users.index')}>Users</Link>
                         </li>
                     </ul>
 
                     {auth.user !== null ?
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a className="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {auth.user.name}
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -57,6 +57,6 @@ export default function Navbar(props) {
 
                 </div>
             </div>
-        </nav>
+        </nav >
     )
 }
