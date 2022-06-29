@@ -1,15 +1,14 @@
 import { useForm, usePage } from '@inertiajs/inertia-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const CreateUser = ({ close }) => {
+const EditUser = ({ close, identifier }) => {
 
     const { errors } = usePage().props
-    const { data, setData, post, reset } = useForm({
-        name: '',
-        email: '',
-        username: '',
-        location: '',
-        password: '',
+    const { data, setData, put, reset } = useForm({
+        name: identifier.name,
+        email: identifier.email,
+        username: identifier.username,
+        location: identifier.location,
     });
 
     const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
@@ -17,12 +16,22 @@ const CreateUser = ({ close }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         //untuk input
-        post(route('users.store'), {
+        put(route('users.update', identifier.id), {
             data,
             // untuk reset input
             onSuccess: () => { reset(), close() },
         });
     }
+
+    useEffect(() => {
+        setData({
+            ...data,
+            name: identifier.name,
+            email: identifier.email,
+            username: identifier.username,
+            location: identifier.location,
+        })
+    }, [identifier])
 
     return (
         <form onSubmit={onSubmit} noValidate>
@@ -62,19 +71,12 @@ const CreateUser = ({ close }) => {
                         {errors && (<div className="text-danger mt-1">{errors.location}</div>)}
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" name="password" value={data.password} onChange={onChange} id="password" className="form-control" />
-                        {errors && (<div className="text-danger mt-1">{errors.password}</div>)}
-                    </div>
-                </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Create</button>
+            <button type="submit" className="btn btn-primary">Update</button>
 
         </form>
     );
 }
 
-export default CreateUser;
+export default EditUser;

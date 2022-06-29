@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -82,9 +83,20 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        $attribute = $request->toArray();
+
+        $attribute['password'] = bcrypt($request->password);
+
+        $user->update($attribute);
+
+        if($user) {
+            return back()->with([
+                'type' => 'success',
+                'message' => 'User updated successfully',
+            ]);
+        }
     }
 
     /**

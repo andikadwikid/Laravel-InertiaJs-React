@@ -14,7 +14,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-    Route::resource('/users', UsersController::class);
+    Route::apiResource('/users', UsersController::class);
 });
 
 Route::middleware(['guest'])->group(function(){

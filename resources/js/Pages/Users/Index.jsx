@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import CreateUser from '../../Components/CreateUser';
+import EditUser from '../../Components/EditUser';
 import Dialog from '../../Components/Dialog';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
@@ -8,9 +9,16 @@ import useDialog from '../../Hooks/useDialog';
 export default function Index(props) {
 
     const { data: users, links, from } = props.users
+    const [state, setState] = useState([])
 
     // const { modalAdd, open, close } = useDialog()
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
+    const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
+
+    const openEditDialog = (user) => {
+        setState(user)
+        editDialogHandler()
+    }
 
     return (
         <div className="container">
@@ -18,6 +26,12 @@ export default function Index(props) {
                 <CreateUser close={addCloseTrigger} />
                 {/* <button onClick={close} className="btn btn-secondary">Cancel</button> */}
             </Dialog>
+
+            <Dialog trigger={editTrigger} title={`Edit User : ${state.name}`}>
+                <EditUser identifier={state} close={editCloseTrigger} />
+                {/* <button onClick={close} className="btn btn-secondary">Cancel</button> */}
+            </Dialog>
+
             <button onClick={addDialogHandler} className="btn btn-primary px-4">
                 Add
             </button>
@@ -50,7 +64,7 @@ export default function Index(props) {
 
                                             </button>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a className="dropdown-item" href="#">Edit</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openEditDialog(user)}>Edit</button></li>
                                                 <li><a className="dropdown-item" href="#">View</a></li>
                                                 <li><a className="dropdown-item" href="#">Delete</a></li>
                                             </ul>
