@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class UsersController extends Controller
@@ -19,6 +20,7 @@ class UsersController extends Controller
     {
         return inertia('Users/Index', [
             'users' => User::latest()->paginate(10),
+            'addUser' => Auth::user()->can('add_user'),
         ]);
     }
 
@@ -40,6 +42,7 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('add_user', Auth::user());
         $attribute = $request->toArray();
 
         $attribute['password'] = bcrypt($request->password);

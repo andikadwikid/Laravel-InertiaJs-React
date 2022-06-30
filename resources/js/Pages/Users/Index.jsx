@@ -11,6 +11,8 @@ import { useForm } from '@inertiajs/inertia-react';
 export default function Index(props) {
 
     const { data: users, links, from } = props.users
+    const { addUser } = props;
+    console.log(addUser)
 
     const { data, setData, post, put, reset, errors } = useForm({
         name: '',
@@ -96,9 +98,10 @@ export default function Index(props) {
                 <button onClick={destroyUser} className="btn btn-danger">Delete</button>
             </Dialog>
 
-            <button onClick={addDialogHandler} className="btn btn-primary px-4">
+            {addUser ? <button onClick={addDialogHandler} className="btn btn-primary px-4">
                 Add
-            </button>
+            </button> : 'You are not an admin'}
+
             <div className="card mt-3">
                 <div className="card-header">Users</div>
                 <div className="card-body">
@@ -109,7 +112,7 @@ export default function Index(props) {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Location</th>
-                                <th className="text-end">Action</th>
+                                {addUser ? <th className="text-end">Action</th> : null}
                             </tr>
                         </thead>
                         <tbody>
@@ -119,7 +122,7 @@ export default function Index(props) {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.location}</td>
-                                    <td>
+                                    {addUser ? <td>
                                         <div className="dropdown text-end">
                                             <button className="btn p-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -133,7 +136,8 @@ export default function Index(props) {
                                             </ul>
                                         </div>
 
-                                    </td>
+                                    </td> : null}
+
                                 </tr>
                             ))}
                         </tbody>
