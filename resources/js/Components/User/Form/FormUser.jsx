@@ -1,40 +1,11 @@
-import { useForm, usePage } from '@inertiajs/inertia-react';
-import React, { useEffect } from 'react';
+import React from 'react'
 
-const EditUser = ({ close, identifier }) => {
-
-    const { errors } = usePage().props
-    const { data, setData, put, reset } = useForm({
-        name: identifier.name,
-        email: identifier.email,
-        username: identifier.username,
-        location: identifier.location,
-    });
+export default function FormUser({ errors, submit, data, setData }) {
 
     const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        //untuk input
-        put(route('users.update', identifier.id), {
-            data,
-            // untuk reset input
-            onSuccess: () => { reset(), close() },
-        });
-    }
-
-    useEffect(() => {
-        setData({
-            ...data,
-            name: identifier.name,
-            email: identifier.email,
-            username: identifier.username,
-            location: identifier.location,
-        })
-    }, [identifier])
-
     return (
-        <form onSubmit={onSubmit} noValidate>
+        <>
             <div className="row">
                 <div className="col-md-6">
                     <div className="mb-3">
@@ -71,12 +42,17 @@ const EditUser = ({ close, identifier }) => {
                         {errors && (<div className="text-danger mt-1">{errors.location}</div>)}
                     </div>
                 </div>
+
+                <div className="col-md-6">
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" name="password" value={data.password} onChange={onChange} id="password" className="form-control" />
+                        {errors && (<div className="text-danger mt-1">{errors.password}</div>)}
+                    </div>
+                </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Update</button>
-
-        </form>
-    );
+            <button type="submit" className="btn btn-primary">{submit}</button>
+        </>
+    )
 }
-
-export default EditUser;

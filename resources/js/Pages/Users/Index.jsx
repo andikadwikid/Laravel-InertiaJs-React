@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CreateUser from '../../Components/CreateUser';
-import EditUser from '../../Components/EditUser';
+import CreateUser from '../../Components/User/CreateUser';
+import EditUser from '../../Components/User/EditUser';
 import Dialog from '../../Components/Dialog';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
@@ -16,6 +16,7 @@ export default function Index(props) {
     const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
 
     const openEditDialog = (user) => {
+        console.log(user)
         setState(user)
         editDialogHandler()
     }
