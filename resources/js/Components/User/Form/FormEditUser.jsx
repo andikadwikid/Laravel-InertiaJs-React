@@ -1,11 +1,9 @@
 import React from 'react'
 
-export default function FormEditUser({ errors, data, setData }) {
-
-    const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
+export default function FormEditUser({ errors, submitLabel, submit, data, onChange }) {
 
     return (
-        <>
+        <form onSubmit={submit}>
             <div className="row">
                 <div className="col-md-6">
                     <div className="mb-3">
@@ -51,7 +49,7 @@ export default function FormEditUser({ errors, data, setData }) {
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary">Update</button>
-        </>
+            <button type="submit" className="btn btn-primary">{submitLabel}</button>
+        </form>
     )
 }

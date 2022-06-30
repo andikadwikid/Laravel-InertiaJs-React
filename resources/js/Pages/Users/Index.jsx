@@ -1,35 +1,46 @@
-import React, { useState } from 'react';
-import CreateUser from '../../Components/User/CreateUser';
-import EditUser from '../../Components/User/EditUser';
+import React from 'react';
 import Dialog from '../../Components/Dialog';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
 import useDialog from '../../Hooks/useDialog';
 import { Inertia } from '@inertiajs/inertia';
+import FormUser from '../../Components/User/Form/FormUser';
+import FormEditUser from '../../Components/User/Form/FormEditUser';
+import { useForm } from '@inertiajs/inertia-react';
 
 export default function Index(props) {
 
     const { data: users, links, from } = props.users
-    const [state, setState] = useState([])
+
+    const { data, setData, post, put, reset, errors } = useForm({
+        name: '',
+        email: '',
+        username: '',
+        location: '',
+        password: '',
+    });
 
     // const { modalAdd, open, close } = useDialog()
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
     const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
     const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog()
 
+    const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
+
+
     const openEditDialog = (user) => {
         console.log(user)
-        setState(user)
+        setData(user)
         editDialogHandler()
     }
 
     const openDestroyDialog = (user) => {
-        setState(user)
+        setData(user)
         destroyDialogHandler()
     }
 
     const destroyUser = () => {
-        Inertia.delete(route('users.destroy', state.id),
+        Inertia.delete(route('users.destroy', data.id),
             {
                 onSuccess: () => {
                     destroyCloseTrigger()
@@ -37,18 +48,50 @@ export default function Index(props) {
             })
     }
 
+    const storeHandler = (e) => {
+        e.preventDefault();
+        //untuk input
+        post(route('users.store'), {
+            data,
+            // untuk reset input
+            onSuccess: () => { reset(), addCloseTrigger() },
+        });
+    }
+
+    const updateHandler = (e) => {
+        e.preventDefault();
+        //untuk input
+        put(route('users.update', data.id), {
+            data,
+            // untuk reset input
+            onSuccess: () => { reset(), editCloseTrigger() },
+        });
+    }
+
     return (
         <div className="container">
             <Dialog trigger={addTrigger} title="Add Modal">
-                <CreateUser close={addCloseTrigger} />
+                <FormUser {...{
+                    errors,
+                    submitLabel: 'Create',
+                    submit: storeHandler,
+                    data,
+                    onChange,
+                }} />
                 {/* <button onClick={close} className="btn btn-secondary">Cancel</button> */}
             </Dialog>
 
-            <Dialog trigger={editTrigger} title={`Edit User : ${state.name}`}>
-                <EditUser identifier={state} close={editCloseTrigger} />
+            <Dialog trigger={editTrigger} title={`Edit User : ${data.name}`}>
+                <FormEditUser {...{
+                    errors,
+                    submitLabel: 'Update',
+                    submit: updateHandler,
+                    data,
+                    onChange,
+                }} />
             </Dialog>
 
-            <Dialog trigger={destroyTrigger} title={`Delete User : ${state.name}`}>
+            <Dialog trigger={destroyTrigger} title={`Delete User : ${data.name}`}>
                 <p>Are you sure you want to delete this user ?</p>
                 <button onClick={destroyUser} className="btn btn-danger">Delete</button>
             </Dialog>
