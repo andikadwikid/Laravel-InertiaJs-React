@@ -5,6 +5,7 @@ import Dialog from '../../Components/Dialog';
 import Pagination from '../../Components/Pagination';
 import App from '../../Layouts/App';
 import useDialog from '../../Hooks/useDialog';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
 
@@ -14,11 +15,26 @@ export default function Index(props) {
     // const { modalAdd, open, close } = useDialog()
     const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog()
     const [editDialogHandler, editCloseTrigger, editTrigger] = useDialog()
+    const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog()
 
     const openEditDialog = (user) => {
         console.log(user)
         setState(user)
         editDialogHandler()
+    }
+
+    const openDestroyDialog = (user) => {
+        setState(user)
+        destroyDialogHandler()
+    }
+
+    const destroyUser = () => {
+        Inertia.delete(route('users.destroy', state.id),
+            {
+                onSuccess: () => {
+                    destroyCloseTrigger()
+                }
+            })
     }
 
     return (
@@ -30,7 +46,11 @@ export default function Index(props) {
 
             <Dialog trigger={editTrigger} title={`Edit User : ${state.name}`}>
                 <EditUser identifier={state} close={editCloseTrigger} />
-                {/* <button onClick={close} className="btn btn-secondary">Cancel</button> */}
+            </Dialog>
+
+            <Dialog trigger={destroyTrigger} title={`Delete User : ${state.name}`}>
+                <p>Are you sure you want to delete this user ?</p>
+                <button onClick={destroyUser} className="btn btn-danger">Delete</button>
             </Dialog>
 
             <button onClick={addDialogHandler} className="btn btn-primary px-4">
@@ -66,8 +86,7 @@ export default function Index(props) {
                                             </button>
                                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                 <li><button className="dropdown-item" onClick={() => openEditDialog(user)}>Edit</button></li>
-                                                <li><a className="dropdown-item" href="#">View</a></li>
-                                                <li><a className="dropdown-item" href="#">Delete</a></li>
+                                                <li><button className="dropdown-item" onClick={() => openDestroyDialog(user)}>Delete</button></li>
                                             </ul>
                                         </div>
 
